@@ -8,10 +8,11 @@
 # Language/Tools/Technology:
 * Languages: Python 3.x
   * Modules:
-    * Matplotlib
+    * pygame
+    * pygame_menu
 
 # How to run:
- 1. Download Matplotlib
+ 1. Download the pygame and pygame_menu modules
  2. Run the command python3 main.py
  3. Choose which algorithm to use
  4. Gui opens and pick starting node on the graph by hovering over box with your mouse and pressing 's'
