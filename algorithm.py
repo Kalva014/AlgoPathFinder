@@ -43,7 +43,7 @@ def dijkstras_algorithm(graph, start, stop):
     # Initialize all the nodes to be infinity
     infinity = 9999999
     shortest_distance = [[infinity] * 20] * 20 
-    predecessor = [[None] * 20] * 20
+    predecessor = [[None] * 20] * 20 # Wrong right here
     path = []
     unseen_nodes = []
     
@@ -52,14 +52,6 @@ def dijkstras_algorithm(graph, start, stop):
         for i in range(len(curr_node_row)):
             unseen_nodes.append(curr_node_row[i])
     
-    #for curr_node_row in unseen_nodes: #Might not need this cause of initializing everything from the beginning
-    #    for i in range(len(curr_node_row)):
-    #        #shortest_distance.append(curr_node_row[i])
-    #        shortest_distance[curr_node_row[i].column + curr_node_row[i].row] = infinity
-
-    #        if(curr_node_row[i] == start):
-    #            curr_node_row[i] = 0
-
     # Set starting node to have a distance of 0
     shortest_distance[start.row][start.column] = 0
 
@@ -75,14 +67,18 @@ def dijkstras_algorithm(graph, start, stop):
         for child_node in min_node.neighbors:
             if child_node.distance + shortest_distance[min_node.row][min_node.column] < shortest_distance[child_node.row][child_node.column]:
                 shortest_distance[child_node.row][child_node.column] = child_node.distance + shortest_distance[min_node.row][min_node.column]
-                predecessor[child_node.row][child_node.column] = min_node
+                predecessor[child_node.row][child_node.column] = min_node # Wrong right here
+
+        #This code will color the nodes we have already explored yellow
+        min_node.set_visited()
+        graph.update_grid(graph.grid_list)
 
         unseen_nodes.remove(min_node) # This might be wrong
-        
+
     current_node = stop
     while current_node != start:
         path.insert(0, current_node)
-        current_node = predecessor[current_node.row][current_node.column]
+        current_node = predecessor[current_node.row][current_node.column] # Wrong right here
 
     path.insert(0, start)
 
