@@ -65,3 +65,24 @@ class Grid:
         self.draw_lines()
         
         pygame.display.update()
+
+    # Add all of the neighboring vertices of a node
+    def add_neighbors(self):
+        # Loop through for every node and update its neighbors
+        for x in range(self.number_of_rows):
+            for y in range(self.number_of_columns):
+                # If not a wall then append the BOTTOM neighbor node of the current node
+                if (self.grid_list[x][y].row < (self.number_of_rows - 1)) and not (self.grid_list[x + 1][y].is_wall()): 
+                    self.grid_list[x][y].neighbors.append(self.grid_list[x + 1][y])
+
+                # If not a wall then append the TOP neighbor node of the current node
+                if (self.grid_list[x][y].row > 0) and not (self.grid_list[x - 1][y].is_wall()):
+                    self.grid_list[x][y].neighbors.append(self.grid_list[x - 1][y])
+
+                # If not a wall then append the RIGHT neighbor node of the current node
+                if (self.grid_list[x][y].column < self.number_of_rows - 1) and not (self.grid_list[x][y + 1].is_wall()): # RIGHT
+                    self.grid_list[x][y].neighbors.append(self.grid_list[x][y + 1])
+
+                # If not a wall then append the LEFT neighbor node of the current node
+                if (self.grid_list[x][y].column > 0) and not (self.grid_list[x][y - 1].is_wall()): # LEFT
+                    self.grid_list[x][y].neighbors.append(self.grid_list[x][y - 1])

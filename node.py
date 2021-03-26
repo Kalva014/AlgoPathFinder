@@ -22,6 +22,8 @@ class Node:
         self.x = row * node_margin
         self.y = column * node_margin
         self.node_margin = node_margin
+        self.neighbors = []
+        self.distance = 1
 
     # Returns position of node
     def get_position(self):
@@ -41,6 +43,13 @@ class Node:
         else:
             return False
 
+    # Checks if the node is a wall which can't be passed
+    def is_wall(self):
+        if self.color == black:
+            return True
+        else:
+            return False
+
     # Resets the node to white to show nothing has happened to it
     def reset_node(self):
         self.color = white
@@ -51,4 +60,16 @@ class Node:
 
     # Sets starting node to red
     def set_end(self):
+        self.color = red
+
+    # Sets the wall that blocks the path
+    def set_wall(self):
+        self.color = black
+
+    # Sets the visit color
+    def set_visited(self):
+        self.color = yellow
+
+    # Sets actual path
+    def set_actual_path(self):
         self.color = red
