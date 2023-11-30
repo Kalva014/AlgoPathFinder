@@ -68,7 +68,8 @@ class Node:
 
     # Sets the visit color
     def set_visited(self):
-        self.color = yellow
+        if not self.is_wall():
+            self.color = yellow
 
     # Sets actual path
     def set_actual_path(self):
