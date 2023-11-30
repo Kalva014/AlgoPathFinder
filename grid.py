@@ -19,11 +19,6 @@ class Grid:
 
         return self.grid_list
 
-    # # Draw squares onto the screen
-    # def draw_squares(self):
-    #     for row in self.grid_list:
-    #         for node in row:
-    #                 pygame.draw.rect(self.window, node.color, (node.x, node.y, node.node_margin, node.node_margin))
     # Draw squares onto the screen
     def draw_squares(self):
         for row in self.grid_list:
