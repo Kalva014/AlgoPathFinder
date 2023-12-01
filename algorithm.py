@@ -3,16 +3,19 @@ from grid import *
 # Used to color the optimal path and retrace back
 def backtrack(explored, start, end):
     path = [end]
-    
+
     while path[0] != start:
         path[0].set_actual_path()
         path.append(explored[path[0]])
-    
+
+    for node in path:
+        node.set_actual_path()
+
     path.reverse()
-    
+
     return path
 
-# This is the Breadth First Search for finding shortest path from node start to node finish
+# This is the Breadth First Search for finding the shortest path from node start to node finish
 def BFS(graph, start, stop):
     # Track all explored nodes
     explored = {}
@@ -23,21 +26,36 @@ def BFS(graph, start, stop):
 
     # Loop until all possible paths have been checked 
     while len(queue) != 0:
-        # Pop the first box from the queue and then add its neighbors to the queue
+        # Pop the first path from the queue
         curr_list_of_nodes = queue.pop(0)
+        current_node = curr_list_of_nodes[-1]
 
-        queue.append(curr_list_of_nodes[0].neighbors)
+        # If the current node is the destination, return the path
+        if current_node == stop:
+            for node in curr_list_of_nodes:
+                node.set_actual_path()
+            graph.update_grid(graph.grid_list)  # Update the grid after setting the path
+            return curr_list_of_nodes
 
-        for visitedList in queue:
-            for node in visitedList:
-                node.set_visited()
-                explored = visitedList.pop()
+        # If the current node has not been explored
+        if current_node not in explored:
+            # Explore its neighbors
+            for neighbor in current_node.neighbors:
+                new_path = list(curr_list_of_nodes)
+                new_path.append(neighbor)
+                queue.append(new_path)
 
-                if(node == stop):
-                    backtrack(explored, start, stop)
+            # Mark the current node as explored
+            explored[current_node] = True
 
-        graph.update_grid(graph.grid_list)
+            # Visualize explored nodes
+            current_node.set_visited()
+            graph.update_grid(graph.grid_list)
 
+    # If no path is found
+    return None
+
+# This is dijkstras algo for finding the shortest path from node start to node finish
 def dijkstras_algorithm(graph, start, stop):
     # Initialize all the nodes to be infinity
     infinity = 9999999

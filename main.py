@@ -68,7 +68,7 @@ def main(window, width):
 
             # If a button is pressed
             if event.type == pygame.KEYDOWN:
-
+                
                 # User presses 'a' to open/close the algorithm menu
                 if event.key == pygame.K_a:
                     algorithm_menu_open = not algorithm_menu_open 
