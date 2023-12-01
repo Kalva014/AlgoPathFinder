@@ -14,7 +14,7 @@ pygame.display.set_caption("Path Finding Visualizer")
 class Algorithm:
     DIJKSTRA = "Dijkstra's Algorithm"
     BFS = "Breadth-First Search"
-    # Add more algorithms as needed
+    DFS = "Depth-First Search"
 
 # Function to run the selected algorithm
 def run_algorithm(selected_algorithm, grid, start_node, stop_node):
@@ -22,6 +22,8 @@ def run_algorithm(selected_algorithm, grid, start_node, stop_node):
         dijkstras_algorithm(grid, start_node, stop_node)
     elif selected_algorithm == Algorithm.BFS:
         BFS(grid, start_node, stop_node)
+    elif selected_algorithm == Algorithm.DFS:
+        DFS(grid, start_node, stop_node)
 
 # To stop the menu from running any further we change the value to false
 def stop_menu_running():
@@ -53,7 +55,7 @@ def main(window, width):
 
     # Algorithm menu variables
     algorithm_menu_font = pygame.font.SysFont(None, 30)
-    algorithm_menu_text = [algorithm_menu_font.render(f"{i+1}. {algo}", True, black) for i, algo in enumerate([Algorithm.DIJKSTRA, Algorithm.BFS])]
+    algorithm_menu_text = [algorithm_menu_font.render(f"{i+1}. {algo}", True, black) for i, algo in enumerate([Algorithm.DIJKSTRA, Algorithm.BFS, Algorithm.DFS])]
     algorithm_menu_rects = [text.get_rect(topleft=(10, 40 * (i + 1))) for i, text in enumerate(algorithm_menu_text)]
     selected_algorithm = None
 
@@ -74,14 +76,14 @@ def main(window, width):
                     algorithm_menu_open = not algorithm_menu_open 
                 
                 # Handle algorithm selection when the menu is open
-                if algorithm_menu_open and event.key in [pygame.K_1, pygame.K_2]:
+                if algorithm_menu_open and event.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
                     # Clear the previous selection
                     selected_algorithm = None
 
                     # Subtracting pygame.K_1 to get the index (0-based)
                     index = event.key - pygame.K_1
                     if 0 <= index < len(algorithm_menu_text):
-                        selected_algorithm = [Algorithm.DIJKSTRA, Algorithm.BFS][index]
+                        selected_algorithm = [Algorithm.DIJKSTRA, Algorithm.BFS, Algorithm.DFS][index]
 
                 # User hovers over square and clicks 's' on the keyboard
                 if event.key == pygame.K_s:
@@ -140,10 +142,11 @@ def main(window, width):
         # Draw the algorithm menu
         if algorithm_menu_open:
             for i, (text, rect) in enumerate(zip(algorithm_menu_text, algorithm_menu_rects)):
-                if selected_algorithm == [Algorithm.DIJKSTRA, Algorithm.BFS][i]:
+                if selected_algorithm == [Algorithm.DIJKSTRA, Algorithm.BFS, Algorithm.DFS][i]:
                     pygame.draw.rect(window, yellow, rect)
-                if selected_algorithm != [Algorithm.DIJKSTRA, Algorithm.BFS][i]:
+                else:
                     pygame.draw.rect(window, white, rect)
+
                 window.blit(text, rect)
 
         pygame.display.update()

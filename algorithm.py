@@ -8,8 +8,8 @@ def backtrack(explored, start, end):
         path[0].set_actual_path()
         path.append(explored[path[0]])
 
-    for node in path:
-        node.set_actual_path()
+    # for node in path:
+    #     node.set_actual_path()
 
     path.reverse()
 
@@ -102,3 +102,34 @@ def dijkstras_algorithm(graph, start, stop):
         node.set_actual_path()
     
     graph.update_grid(graph.grid_list)
+
+# This is Depth First Search algo for finding the shortest path from node start to node finish
+def DFS(graph, start, stop):
+    # Track all explored nodes
+    explored = {}
+
+    # Stack to keep track of the path
+    stack = [(start, [start])]
+
+    # Loop until all possible paths have been checked
+    while stack:
+        current_node, path = stack.pop()
+
+        # Mark the node as visited
+        current_node.set_visited()
+
+        # If the stop node is found, backtrack and return the path
+        if current_node == stop:
+            for node in path:
+                node.set_actual_path()
+            graph.update_grid(graph.grid_list)
+            return path
+
+        # Add neighbors to the stack (excluding walls and already explored nodes)
+        for neighbor in current_node.neighbors:
+            if neighbor not in explored and not neighbor.is_wall():
+                explored[neighbor] = True
+                stack.append((neighbor, path + [neighbor]))
+
+    # If no path is found
+    return None
