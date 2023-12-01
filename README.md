@@ -14,8 +14,9 @@
 # How to run:
  1. Download the pygame and pygame_menu modules
  2. Run the command python3 main.py
- 3. Choose which algorithm to use
- 4. Gui opens and pick starting node on the graph by hovering over box with your mouse and pressing 's'
- 5. Do the same method to pick the ending node by pressing 'e'
- 6. To build walls press 'w' over the nodes
- 7. Press space to run the algorithm
+ 3. Open the algorithms selection menu by pressing 'a'
+ 4. Choose which algorithm to use by pressing the number correlating to the algorithm on the keyboard
+ 5. Pick starting node on the graph by hovering over box with your mouse and pressing 's'
+ 6. Do the same method to pick the ending node by pressing 'e'
+ 7. To build walls press 'w' over the nodes
+ 8. Press space to run the algorithm
